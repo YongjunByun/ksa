@@ -12,4 +12,5 @@
 ### 2. 구조 설계
 #### 1) UML(Unified Modeling Language) Diagram
 ##### (1) Use Case Diagram
-![유스케이스다이어그램](https://user-images.githubusercontent.com/72690336/117629138-d0307b80-b1b4-11eb-92d5-5c78e01701b3.jpg)
+![유스케이스다이어그램](https://user-images.githubusercontent.com/72690336/117634124-9b72f300-b1b9-11eb-915c-04a203d51ff3.jpg)
+
