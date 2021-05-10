@@ -3,12 +3,14 @@
 ---------------
 
 ## 1. 요구사항 분석 (Requirement Analysis)
-<strong> * 공학용 계산기 구현
-* Android Studio 사용
-* 덧셈, 뺄셈, 곱셈, 나눗셈, 나머지, 로그, 지수, 제곱, 루트, 팩토리얼 연산 구현
-* 실수 연산 구현
-* RESET, DICE(RANDOM INT), DEL 버튼 구현
-* "=" 클릭 시 결과 및 연산 식 출력
+
+ ### * 공학용 계산기 구현
+ 
+   + Android Studio 사용
+   * 덧셈, 뺄셈, 곱셈, 나눗셈, 나머지, 로그, 지수, 제곱, 루트, 팩토리얼 연산 구현
+   * 실수 연산 구현
+   * RESET, DICE(RANDOM INT), DEL 버튼 구현
+   * "=" 클릭 시 결과 및 연산 식 출력
 ---------------------
 
 ## 2. 구조 설계
@@ -24,12 +26,15 @@
 
 ### 2) 클래스 정의
 <strong> * Operator Class
-  * 필드 : 연산자 우선순위 HashMap
-  * 메소드 : 실수형 연산자(+, -, *, /, %, log, exp, !, ^, √)
+ 
+* 필드 : 연산자 우선순위 HashMap
+* 메소드 : 실수형 연산자(+, -, *, /, %, log, exp, !, ^, √)
 
 <strong> * Operate_Process Class
-  * 필드 : 변환한 후위표기식 ArrayList<String>, 연산자 Stack, 피연산자 String, 연산결과 Stack<Double>
-  * 메소드 : 연산자 검사(isOperator), 후위표기식 변환(to_postfix), 후위표기식 연산(operate)
+ 
+#####  * 필드 : 변환한 후위표기식 ArrayList<String>, 연산자 Stack, 피연산자 String, 연산결과 Stack<Double>
+ 
+#####  * 메소드 : 연산자 검사(isOperator), 후위표기식 변환(to_postfix), 후위표기식 연산(operate)
 
 <strong> * MainActivity Class
   * 필드 : 버튼 위젯 id 선언, 텍스트뷰 위젯 id 선언, 입력 수식 String, 결과값 Double, 출력 수식 String, Operate_Process 클래스 선언
