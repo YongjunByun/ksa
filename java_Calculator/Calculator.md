@@ -19,7 +19,8 @@
 ![시퀀스다이어그램](https://user-images.githubusercontent.com/72690336/117635238-98c4cd80-b1ba-11eb-9899-3cb02154d4c1.JPG)
 
 ##### (3) Class Diagram
-![Uploading 클래스다이어그램.JPG…]()
+![클래스다이어그램](https://user-images.githubusercontent.com/72690336/117635746-17ba0600-b1bb-11eb-944c-014e41ab6441.JPG)
+
 
 
 
