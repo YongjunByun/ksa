@@ -1,2 +1,49 @@
-# siwon
-Database
+# 혁신성장청년인재 5주 2일차 - 이미지 처리
+###### <strong> 다운샘플링, 업샘플링, 양자화
+
+* 언어 : C++
+* 프로그램 : Visual Studio 2019 WFC Visual C++ 솔루션
+* 클래스 : image_processing.cpp, image_processingDoc.cpp, image_processingView.cpp, CDownSampleDlg.cpp, CUpSampleDlg.cpp, CQuantization.cpp
+* 다이얼로그 : IDD_DIALOG1(다운샘플링 메뉴), IDD_DIALOG2(업샘플링 메뉴), IDD_DIALOG3(양자화 메뉴)
+</strong>
+
+----------------------------------------
+
+### 다운샘플링
+* 리소스뷰 메뉴 생성
+
+ ![image](https://user-images.githubusercontent.com/72690336/117845367-7070c800-b2bb-11eb-9b10-8b292652e302.png)
+ 
+* 다운샘플링 메뉴 (1~32 까지 값 입력)
+
+![image](https://user-images.githubusercontent.com/72690336/117845741-c9d8f700-b2bb-11eb-8d9e-b3de67f541e0.png)
+
+* 구동화면
+
+![image](https://user-images.githubusercontent.com/72690336/117845934-f1c85a80-b2bb-11eb-87b7-86761ca32f4f.png)
+
+--------------------------------
+
+### 업샘플링
+* 업샘플링 메뉴
+
+![image](https://user-images.githubusercontent.com/72690336/117846354-52579780-b2bc-11eb-9127-e585cb4483aa.png)
+
+
+* 구동화면
+![image](https://user-images.githubusercontent.com/72690336/117846225-32c06f00-b2bc-11eb-96f5-a60faf60d8a9.png)
+
+----------------------------
+
+### 양자화
+* 양자화 메뉴 (1~8 사이 값 입력)
+
+![image](https://user-images.githubusercontent.com/72690336/117846437-6602fe00-b2bc-11eb-8c59-fd7045377e1b.png)
+
+* 구동화면
+
+![image](https://user-images.githubusercontent.com/72690336/117846507-77e4a100-b2bc-11eb-8b03-969d247ee761.png)
+
+----------------------------------
+### 보완할 점
+* 메모리를 동적할당하여 사용하지만 연산 종료 후 메모리 할당을 제거하는 코드가 없어 저사양 컴퓨터에서 메모리 공간부족현상 발생
