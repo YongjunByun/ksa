@@ -16,7 +16,6 @@
  
  ```
  
-</strong>
 
 ----------------------------------------
 
@@ -28,11 +27,13 @@
 
 * 파이참 설치 및 가상환경 연결
 
-<strong> [File] -> [Settings] -> [Project: pycharm] -> [Python Interpreter] -> [아나콘다 가상환경 경로의 python.exe 더블클릭] </strong>
+[File] -> [Settings] -> [Project: pycharm] -> [Python Interpreter] -> [아나콘다 가상환경 경로의 python.exe 더블클릭]
 
 <img src = "https://user-images.githubusercontent.com/72690336/118503181-57f22900-b765-11eb-9df7-ede0ae64c3a1.png" width="50%" height="50%">
 
 -해당 가상환경의 패키지들이 load된 것을 볼 수 있다.
+
+----------------------------------------
 
 ### DNN
 
@@ -61,6 +62,7 @@
 
 -epochs 반복 차수가 높아질수록 점점 모델 향상 정도가 낮아진다. 
 
+----------------------------------------
 
 ### CNN
 
@@ -74,15 +76,22 @@
 <img src = "https://user-images.githubusercontent.com/72690336/118510261-c0440900-b76b-11eb-8131-757ec8aa496d.png" width="70%" height="70%">
 
 * 모델 성능
-  * 훈련셋 : loss: 0.0187 - accuracy: 0.9940 - val_loss: 0.1067 - val_accuracy: 0.9753
-  * 테스트셋 : loss: 0.0974 - accuracy: 0.9758
+  * 훈련셋 : loss: 0.0052 - accuracy: 0.9981 - val_loss: 0.0567 - val_accuracy: 0.9872
+  * 테스트셋 : loss: 0.0468 - accuracy: 0.9886
+
+-DNN보다 train과 validation셋에 대한 성능이 소폭 상승했다.
+-test셋에 대한 accuracy 또한 상승했다. -> DNN보다 이미지 분류에 더 효율적인 예측 결과를 보인다.
 
 * 학습 모델 그래프
 
-<img src = "https://user-images.githubusercontent.com/72690336/118505567-7e18c880-b767-11eb-8e9a-fc26a7f1de2c.png" width="40%" height="40%">  <img src = "https://user-images.githubusercontent.com/72690336/118506467-4c543180-b768-11eb-968a-9697f8b80e38.png" width="40%" height="40%">
+<img src = "https://user-images.githubusercontent.com/72690336/118532726-3eaba580-b782-11eb-87fa-4f00966808b2.png" width="40%" height="40%">  <img src = "https://user-images.githubusercontent.com/72690336/118532793-4f5c1b80-b782-11eb-99cf-7734501a867e.png" width="40%" height="40%">
 
 -epochs 반복 차수가 높아질수록 점점 모델 향상 정도가 낮아진다. 
+-1회 이상 반복 수행 시점부터 train과 validation 셋의 성능이 차이가 나기 시작한다.
 
-### 보완할 점
+----------------------------------------
 
-* 보완할 점이라기 보다는 한번에 여러그림을 넣고 동시에 결과를 볼수는 없을까? 연구가 필요함
+### 의문점
+
+* CNN에서 은닉층을 더 추가하면 결과가 어떻게 되는가?
+* epoch가 1 이상 시점부터 오버피팅이 시작되는 것인가?
