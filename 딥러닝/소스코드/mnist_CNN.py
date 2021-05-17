@@ -23,7 +23,7 @@ def plot_acc(history):
     plt.title('Model accuracy')
     plt.ylabel('accuracy')
     plt.xlabel('Epoch')
-    plt.legend(['Train', 'accuracy'], loc=0)
+    plt.legend(['Train', 'val'], loc=0)
 
 # 하이퍼파라미터 설정
 np.random.seed(1337)
@@ -87,3 +87,7 @@ score = model.evaluate(X_test, y_test, verbose=1)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
+plot_acc(history)
+plt.show()
+plot_loss(history)
+plt.show()

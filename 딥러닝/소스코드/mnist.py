@@ -14,14 +14,14 @@ def plot_loss(history):
     plt.xlabel('Epoch')
     plt.legend(['Train', 'val'], loc=0)
 
-
+#accuracy 그래프 그리기
 def plot_acc(history):
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
     plt.title('Model accuracy')
     plt.ylabel('accuracy')
     plt.xlabel('Epoch')
-    plt.legend(['Train', 'accuracy'], loc=0)
+    plt.legend(['Train', 'val'], loc=0)
 
 # 하이퍼파라미터 설정
 batch_size = 128
@@ -48,16 +48,18 @@ for i in range(25):
 
 plt.show()
 
+# 각 이미지 1차원 배열화
 L, W, H = X_train.shape
 X_train = X_train.reshape(60000, W * H)
 X_test = X_test.reshape(10000, W * H)
 
+# 정규화
 X_train = X_train.astype('float32')
 X_test = X_test.astype('float32')
 X_train /= 255
 X_test /= 255
 
-# 라벨
+# 라벨 원핫 인코딩
 print("y_train_ori:{}".format(y_train[:5]))
 y_train = to_categorical(y_train, num_classes)
 print("y_train_after:{}".format(y_train[:5]))
@@ -87,4 +89,6 @@ print('Test accuracy:', score[1])
 
 
 plot_acc(history)
+plt.show()
+plot_loss(history)
 plt.show()
