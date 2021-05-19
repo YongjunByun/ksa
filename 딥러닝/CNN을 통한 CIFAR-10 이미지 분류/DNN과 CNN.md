@@ -144,7 +144,7 @@
 
 * 최종 예측 샘플
 
-<img src = "https://user-images.githubusercontent.com/72690336/118848583-d8ea2580-b909-11eb-9591-f93894634d20.png" width="40%" height="40%">
+<img src = "https://user-images.githubusercontent.com/72690336/118848583-d8ea2580-b909-11eb-9591-f93894634d20.png" width="60%" height="60%">
 
 
 ----------------------------------------
