@@ -74,7 +74,7 @@
 
 레나이미지 마스킹 결과
 
-<img src="https://user-images.githubusercontent.com/72690336/120917178-9d60a100-c6e8-11eb-832c-6bcf0f05c1d3.png" width ="350px" height="250px" title="Project_structure_info" alt="Project_structure_info"></img><br/>
+<img src="https://user-images.githubusercontent.com/72690336/120917391-fb41b880-c6e9-11eb-8fc7-db59236fedec.png" width ="550px" height="500px" title="Project_structure_info" alt="Project_structure_info"></img><br/>
 
 * 개선할 점
     * 히스토그램 평활화, 샤프닝 등 객체를 강조하는 이미지 처리기법 적용
