@@ -108,6 +108,8 @@ void CImageCompositionView::OnDraw(CDC* pDC)
 	}
 
 	//아웃풋 출력
+	if (pDoc->m_OutputImage == NULL)
+		return;
 	if (pDoc->dibHi.biBitCount == 24) {
 		height = pDoc->dibHi.biHeight;
 		width = pDoc->dibHi.biWidth;
