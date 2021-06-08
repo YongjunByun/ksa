@@ -189,7 +189,7 @@ BOOL CImageCompositionDoc::OnOpenDocument(LPCTSTR lpszPathName)
 
 	//이미지를 저장, 출력할 배열생성.
 	m_InImg = new unsigned char[ImgSize];
-	m_OutputImage = new unsigned char[ImgSize];
+	m_OutputImage = NULL;
 	hFile.Read(m_InImg, ImgSize);
 	//m_OutputImage = m_InImg;
 	hFile.Close();
