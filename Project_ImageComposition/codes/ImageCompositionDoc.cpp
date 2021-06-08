@@ -334,9 +334,8 @@ void CImageCompositionDoc::OnImgComp()
 				m_Out_size = m_Out_height * m_Out_width;
 
 				m_OutputImage = new unsigned char[m_Out_size];
-				m_OutputImage = background;
+				
 				m_MaskImage = new unsigned char[m_Out_size];
-				m_MaskImage = mask;
 
 				m_OutputImage = ic.ImageComposition(m_Out_size, m_InImg, background, m_OutputImage, m_MaskImage, bitcount);
 			}
