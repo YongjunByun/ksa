@@ -177,7 +177,8 @@
 
 * 생성이미지(fake)
  
-<p align="center"><https://user-images.githubusercontent.com/72690336/122809052-8df86f00-d308-11eb-863f-3ab343d2f733.png" width="30%" height="30%">
+<p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122809052-8df86f00-d308-11eb-863f-3ab343d2f733.png" width="30%" height="30%">
  
 * 모델 성능(step 6000)
   * Generator loss: 3.7584004163742075, discriminator loss: 0.07491180759668352
+
