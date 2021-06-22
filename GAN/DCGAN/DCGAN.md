@@ -1,16 +1,14 @@
-# GAN과 시각지능
-###### <strong> GAN의 기본 - Vanilla GAN
+# DCGAN
+###### <strong> DCGAN의 개념과 코딩
 
 * 언어 : Python
 * 프로그램 : Colab
-* 소스코드 : GAN.ipynb
+* 소스코드 : DCGAN.ipynb
 * 사용한 모듈 : matplotlib, torch, torchvison, tqdm
 * 주요 함수 :
 
 ```
-
- gen_block, dis_block, class Generator, class Discriminator, get_gen_loss, get_disc_loss, show_tensor_images
- 
+ gen_block, dis_block, class Generator, class Discriminator, get_gen_loss, get_disc_loss, show_tensor_images 
  ```
  
 
@@ -22,26 +20,23 @@
 
 ----------------------------------------
 
-## GAN
+## DCGAN
  
-### GAN의 기본원리
+### Vanilla GAN의 한계
  
- * 적대적 탐색(Adversarial search) : 서로 반대되는 두 입장의 객체가 서로 입장을 바꿔가며 진행함으로써 최적의 해를 탐색하는 과정
- 
- * Discriminator Model(Classifier) : 입력 데이터를 미리 정의한 카테고리로 분류
-   * SVM -> CNN
-   * 입력 : 복잡한 모델 ex) 영상
-   * 출력 : 하나의 scalar or n 개의 class
- 
- * Generative Model : 간단한 정보(latent vector)로부터 복잡한 모델을 합성하는 도구
-   * AE(Auto Encoder) -> VAE(Variational Auto Encoder)
-   * 입력 : 간단한 정보(latent vector)
-   * 출력 : 영상
- 
- <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122800405-dbbbaa00-d2fd-11eb-8688-a05e8eaef6b1.png" width="80%" height="80%">
+ * 생성 이미지가 만족스럽지 못함 -> DCGAN사용
+ * 불안정한 학습 -> WGAN Gradient Penalty 사용
+ * 통제불가능한 무작위카테고리 이미지 생성 -> CGAM 사용
 
   
-### GAN의 개념
+### DCGAN의 기본원리
+ 
+ * 합성곱(Convolution) 연산
+   * 주어진 함수에 g(kernel, filter)를 곱해서 더하는 연산
+   * 영상에서는 입력 영상에 작은 크기의 kernel 영상을 pixel-by-pixel로 곱해서 더한 영상을 생성하는 과정을 의미함
+ 
+![image](https://user-images.githubusercontent.com/72690336/122898701-0e10ea00-d386-11eb-82fd-a99f2d2c29f9.png)
+
   
   * 생성자 (Generator)와 판별자 (Discriminator)의 대립과 경쟁을 통해서 모델을 훈련시켜서 사용자가 만족할만한 수준의 결과를 생성하는 생성 모델
   * 생성자 (Generator)
