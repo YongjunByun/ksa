@@ -106,31 +106,31 @@
 
 * generator block
    ```python
-     def gen_block(input_dim, output_dim):
-      return nn.Sequential(
-        nn.Linear(input_dim, output_dim),
-        nn.BatchNorm1d(output_dim),
-        nn.ReLU(inplace=True),
-      )
+      def gen_block(input_dim, output_dim):
+       return nn.Sequential(
+         nn.Linear(input_dim, output_dim),
+         nn.BatchNorm1d(output_dim),
+         nn.ReLU(inplace=True),
+       )
      ```
   * input 차원과 output 차원을 입력받음
   * Linear layer와 batch norm, relu 함수로 구성
      
 * Generator
      ```python
-     class Generator(nn.Module):
-      def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
-        super(Generator, self).__init__()
-        # Build the neural network
-        self.gen = nn.Sequential(
-            gen_block(z_dim, hidden_dim),
-            gen_block(hidden_dim, hidden_dim*2),
-            gen_block(hidden_dim*2, hidden_dim*4),
-            gen_block(hidden_dim*4, hidden_dim*8),
-            
-            nn.Linear(hidden_dim*8, im_dim),
-            nn.Sigmoid()
-        )
+        class Generator(nn.Module):
+         def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
+           super(Generator, self).__init__()
+           # Build the neural network
+           self.gen = nn.Sequential(
+               gen_block(z_dim, hidden_dim),
+               gen_block(hidden_dim, hidden_dim*2),
+               gen_block(hidden_dim*2, hidden_dim*4),
+               gen_block(hidden_dim*4, hidden_dim*8),
+
+               nn.Linear(hidden_dim*8, im_dim),
+               nn.Sigmoid()
+           )
      ```
   * 4개의 generator block과 FC layer, sigmoid 함수로 구성
   * MNIST데이터 입력(28x28)
@@ -139,11 +139,11 @@
      
 * discriminator block
    ```python
-     def dis_block(input_dim, output_dim):
-      return nn.Sequential(
-        nn.Linear(input_dim, output_dim),
-        nn.LeakyReLU(0.2, inplace=True)
-      )
+      def dis_block(input_dim, output_dim):
+       return nn.Sequential(
+         nn.Linear(input_dim, output_dim),
+         nn.LeakyReLU(0.2, inplace=True)
+       )
      ```
   * input 차원과 output 차원을 입력받음
   * Linear layer와 relu 함수로 구성
