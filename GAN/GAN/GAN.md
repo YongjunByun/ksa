@@ -107,19 +107,19 @@
 * generator block
    ```python
      def gen_block(input_dim, output_dim):
-    return nn.Sequential(
+      return nn.Sequential(
         nn.Linear(input_dim, output_dim),
         nn.BatchNorm1d(output_dim),
         nn.ReLU(inplace=True),
-    )
+      )
      ```
   * input 차원과 output 차원을 입력받음
   * Linear layer와 batch norm, relu 함수로 구성
      
-* Genrator
+* Generator
      ```python
      class Generator(nn.Module):
-    def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
+      def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
         super(Generator, self).__init__()
         # Build the neural network
         self.gen = nn.Sequential(
@@ -140,10 +140,10 @@
 * discriminator block
    ```python
      def dis_block(input_dim, output_dim):
-    return nn.Sequential(
+      return nn.Sequential(
         nn.Linear(input_dim, output_dim),
         nn.LeakyReLU(0.2, inplace=True)
-    )
+      )
      ```
   * input 차원과 output 차원을 입력받음
   * Linear layer와 relu 함수로 구성
@@ -151,7 +151,7 @@
 * Discriminator
   ```python
      class Discriminator(nn.Module):
-    def __init__(self, im_dim=784, hidden_dim=128):
+      def __init__(self, im_dim=784, hidden_dim=128):
         super(Discriminator, self).__init__()
         self.disc = nn.Sequential(
             dis_block(im_dim, hidden_dim * 4),
