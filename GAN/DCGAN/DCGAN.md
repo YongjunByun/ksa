@@ -35,55 +35,47 @@
    * 주어진 함수에 g(kernel, filter)를 곱해서 더하는 연산
    * 영상에서는 입력 영상에 작은 크기의 kernel 영상을 pixel-by-pixel로 곱해서 더한 영상을 생성하는 과정을 의미함
  
-![image](https://user-images.githubusercontent.com/72690336/122898701-0e10ea00-d386-11eb-82fd-a99f2d2c29f9.png)
+<p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122898701-0e10ea00-d386-11eb-82fd-a99f2d2c29f9.png" width="40%" height="40%">
 
-  
-  * 생성자 (Generator)와 판별자 (Discriminator)의 대립과 경쟁을 통해서 모델을 훈련시켜서 사용자가 만족할만한 수준의 결과를 생성하는 생성 모델
-  * 생성자 (Generator)
-    * G::p<sub>z</sub>(z) -> p<sub>g</sub>
-    * 대립을 통해 더 우수한 품질의 결과 도출하도록 훈련
-  * 판별자 (Discriminator)
-    * D::D(x;𝜃<sub>d</sub> -> fake/real
-    * 생성자의 결과가 만족할 수준인지를 판별하여 fake/real의 결과 도출
-   * x ~ p<sub>g</sub> -> fake, x ~ data -> real
-  * GAN의 훈련이 끝나면 마지막 parameter(𝜃<sub>g</sub>)를 저장한 generator를 이용해서 다양한 샘플 생성
-  
- <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122802940-f7747f80-d300-11eb-8afb-6524d4d1a7df.png" width="40%" height="40%">
-  
-### GAN의 구성요소
-  * 생성자(Generator)
-    * Decoder와 유사한 구조
-    * 입력(latent vector)를 받아서 결과(synthesized image)를 생성하는 모듈
-    * Vanilla Gan에서는 convolution을 사용하지 않음
-  
-  * Generator의 구조
-    * n개의 generator block 으로 구성
-    * generator block은 낮은 해상도의 입력을 받아서 높은 해상도의 출력을 생성
-  
-  <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122803575-bdf04400-d301-11eb-8764-c1f8b0faf957.png" width="70%" height="70%">
-  
-  * 판별자(Discriminator)
-    * 입력(real or fake data)을 받아서 real/fake를 판정하는 모듈
-    * Classifier와 유사한 역할을 수행
-   
-  * Discriminator의 구조
-    * n개의 discriminator block 으로 구성
-    * discriminator block은 높은 해상도의 입력을 받아서 낮은 해상도의 출력을 생성
-   
-   <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122804041-58e91e00-d302-11eb-974e-995c385319db.png" width="70%" height="70%">
-    
-  * GAN Loss 함수
-    * BCE(Binary Cross Entropy에서 도출
-    * 훈련데이터 (real, x) -> y<sup>(i)</sup> = 1
-    * 생성데이터 (fake, G(z)) -> y<sup>(i)</sup> = 0, x<sup>(i)</sup> = G(z<sup>(i)</sup>, 𝜃<sub>g</sub>)
-    * Discriminator -> h(.,𝜃<sub>d</sub>
-    * BCE와의 차이 : BCE는 최대화하는 𝜃 하나를 찾는 문제로 max 방향으로만 최적화 하기 때문에 훈련이 쉬우나, GAN Loss는 max와 min 방향으로 최적화하기 때문에 훈련이 어려움
-      * Discriminator: D(x)는 1을, D(G(z))는 0을 출력할 것 -> logD(x) & log (1 – D(G(z)))가 max
-      * Generator: D(G(z))가 1을 출력할 것 -> log(1 – D(G(z)))가 min
-    
-    <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122806282-1bd25b00-d305-11eb-89df-08d747d637ae.png" width="70%" height="70%">
+ * Convolution의 주요 속성
+   * size(kernel의 크기) : 3x3, 5x5, 7x7, etc
+   * stride(kernel의 적용단위) : 1, 2, 3, etc
+   * padding(입력영상의 주변) : None, 0, 1, etc
+ 
+ * Transposed Convolution
+   * Convolution filter의 transposed matrix를 곱함
+   * 영상의 크기가 커지는 연산
+ 
+### DCGAN(Deep Convolution 의 개념
+ * DCGAN = GAN + Convolution Layer
+ 
+### DCGAN의 구조
+ * Generator
+ 
+ <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/123206451-b0e87600-d4f6-11eb-95d0-9f2d6cd6afc8.png" width="60%" height="60%">
 
-    
+ * gen block
+   * parameter : input_channels, ouput_channels, kernel, final_layer
+   * 구성요소 : transposed convolution + batch_norm + ReLU
+   * final_layer : transposed convolution + tanh
+   * H_out = (H_in - 1) * stride - 2 * padding + dilation * (kernel_size - 1) + outpadding + 1
+  
+ * Discriminator
+   * disc block
+     * parameter : input_channels, output_channels, kernel, stride, final_layer
+     * 구성요소 : convolution + batch_norm + LeakyReLU(0.2)
+     * final_layer : convolution
+   * 3개의 disc block
+  
+### DCGAN Loss 함수
+  * Loss 함수
+
+ <p align="center">        min max V(D,G) = E<sub>x ~ pdata(x)</sub>[logD(x)] + E<sub>z ~ pz(z)</sub>[log(1-D(G(z)))]
+
+  * Generator loss
+    * log(1-D(G(z)))
+  * Discriminator loss
+    * logD(x)
 ### GAN Training
   * 훈련 목표
     * 훈련 데이터 x와 일치하는 G(z)를 생성하는 것 P<sub>data</sub> = P<sub>z</sub>, 잘 생성되면 D()는 x와 G(z)를 구분하지 못함 = 값 : 1/2
@@ -101,68 +93,98 @@
 
 * generator block
    ```python
-     def gen_block(input_dim, output_dim):
-    return nn.Sequential(
-        nn.Linear(input_dim, output_dim),
-        nn.BatchNorm1d(output_dim),
-        nn.ReLU(inplace=True),
-    )
+      def gen_block(self, in_channel, out_channel, kernel_size=3, stride=2, final_layer=False):
+         if not final_layer:
+             return nn.Sequential(
+                 nn.ConvTranspose2d(in_channel, out_channel, kernel_size=kernel_size, stride=stride),
+                 nn.BatchNorm2d(out_channel),
+                 nn.ReLU(inplace=True),
+             )
+         else:
+             return nn.Sequential(
+                 nn.ConvTranspose2d(in_channel, out_channel, kernel_size, stride),
+                 nn.Tanh(),
+             )
      ```
   * input 차원과 output 차원을 입력받음
-  * Linear layer와 batch norm, relu 함수로 구성
+  * ConvTransposed layer와 batch norm, ReLU 함수로 구성
+  * kernel_size=3, stride=2
+  * 한 층을 거칠때 마다 2배씩 차원이 커짐
      
 * Genrator
      ```python
-     class Generator(nn.Module):
-    def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
-        super(Generator, self).__init__()
-        # Build the neural network
-        self.gen = nn.Sequential(
-            gen_block(z_dim, hidden_dim),
-            gen_block(hidden_dim, hidden_dim*2),
-            gen_block(hidden_dim*2, hidden_dim*4),
-            gen_block(hidden_dim*4, hidden_dim*8),
-            
-            nn.Linear(hidden_dim*8, im_dim),
-            nn.Sigmoid()
-        )
+        class Generator(nn.Module):
+           def __init__(self, z_dim=10, im_chan=1, hidden_dim=64):
+               super(Generator, self).__init__()
+               self.z_dim = z_dim
+               # Build the neural network
+               self.gen = nn.Sequential(
+                   self.gen_block(z_dim, hidden_dim*4),
+                   self.gen_block(hidden_dim*4, hidden_dim*2, kernel_size=4, stride=1),
+                   self.gen_block(hidden_dim*2, hidden_dim),
+                   self.gen_block(hidden_dim, im_chan, kernel_size=4, final_layer=True),
+               )
      ```
-  * 4개의 generator block과 FC layer, sigmoid 함수로 구성
-  * MNIST데이터 입력(28x28)
-    * 입력 : z_dim = 10
-    * 출력 : im_dim = 784
+  * 4개의 generator block
      
 * discriminator block
    ```python
-     def dis_block(input_dim, output_dim):
-    return nn.Sequential(
-        nn.Linear(input_dim, output_dim),
-        nn.LeakyReLU(0.2, inplace=True)
-    )
+      def disc_block(self, in_, out, kernel_size=4, stride=2, final_layer=False):
+         if not final_layer:
+             return nn.Sequential(
+                 nn.Conv2d(in_, out, kernel_size, stride),
+                 nn.BatchNorm2d(out),
+                 nn.LeakyReLU(0.2, inplace=True)
+             )
+         else:
+             return nn.Sequential(
+                 nn.Conv2d(in_, out, kernel_size, stride)
+             )
      ```
   * input 차원과 output 차원을 입력받음
-  * Linear layer와 relu 함수로 구성
+  * Convolution Layer와 BatchNorm, LeakyReLU 함수로 구성
+  * 한 층을 거칠때 마다 차원 반으로 감소
      
 * Discriminator
   ```python
      class Discriminator(nn.Module):
-    def __init__(self, im_dim=784, hidden_dim=128):
-        super(Discriminator, self).__init__()
-        self.disc = nn.Sequential(
-            dis_block(im_dim, hidden_dim * 4),
-            dis_block(hidden_dim * 4, hidden_dim * 2),
-            dis_block(hidden_dim * 2, hidden_dim),
-            nn.Linear(hidden_dim, 1)
-        )
+       def __init__(self, im_chan=1, hidden_dim=16):
+           super(Discriminator, self).__init__()
+           self.disc = nn.Sequential(
+               self.disc_block(im_chan, hidden_dim),
+               self.disc_block(hidden_dim, hidden_dim*2),
+               self.disc_block(hidden_dim*2, 1, final_layer=True),
+           )
      ```
-  * 3개의 discriminator block과 FC layer로 구성
-  * MNIST데이터 입력(28x28)
-    * 입력 : im_dim = 784
-    * 출력 : 1
+  * 3개의 discriminator block으로 구성
+  
+* Generator Loss
+    ```python
+       def get_gen_loss(gen, disc, criterion, num_images, z_dim, device):
+         fake_noise = get_noise(num_images, z_dim, device=device) # z
+         fake = gen(fake_noise) # G(z)
+         disc_fake_pred = disc(fake) # D(G(z))
+         # compare fake_pred & ones
+         gen_loss = criterion(disc_fake_pred, torch.ones_like(disc_fake_pred))
+         return gen_loss
+    ```
+* Discriminator Loss
+    ```python
+       def get_disc_loss(gen, disc, criterion, real, num_images, z_dim, divice):
+         fake_noise = get_noise(num_images, z_dim, device=device) # z
+         fake = gen(fake_noise) # G(z)
+         disc_fake_pred = disc(fake.detach()) # D(G(z))
+         # compare fake_pred & zeros
+         disc_fake_loss = criterion(disc_fake_pred, torch.zeros_like(disc_fake_pred)) # log(1-D(G(z)))
+         disc_real_pred = disc(real)
+         # compare real_pred & ones
+         disc_real_loss = criterion(disc_real_pred, torch.ones_like(disc_real_pred)) # log(D(x))
+         disc_loss = (disc_fake_loss + disc_real_loss)/2
+
+         return disc_loss
+    ```
      
-* 이후 Loss Function 정의, 초기화, Optimizer 생성, 모델 Training 순으로 진행
-     
-     <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122808601-0dd20980-d308-11eb-89b8-32fa62903301.png" width="30%" height="30%">
+* 이후 초기화, 데이터로딩, Optimizer 생성, 모델 Training 순으로 진행
       
       
 ### 샘플 이미지
@@ -171,9 +193,11 @@
 <p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122808816-4eca1e00-d308-11eb-8eb3-ab3a3777fcd6.png" width="30%" height="30%">
 
 * 생성이미지(fake)
- 
-<p align="center"><img src = "https://user-images.githubusercontent.com/72690336/122809052-8df86f00-d308-11eb-863f-3ab343d2f733.png" width="30%" height="30%">
- 
-* 모델 성능(step 6000)
-  * Generator loss: 3.7584004163742075, discriminator loss: 0.07491180759668352
 
+<p align="center"><img src = "https://user-images.githubusercontent.com/72690336/123210147-8f8a8880-d4fc-11eb-8a34-6af16819b8d7.png" width="30%" height="30%">
+ 
+ -지난번의 Vanilla GEN에 비해 훨씬 더 숫자다운 모습을 보인다.
+ 
+* 모델 성능(step 11500)
+  * Generator loss: 0.7071045048236847, discriminator loss: 0.6988933897018442
+    * Vanilla GEN보다 훨씬 더 낮은 Generator loss 값을 보인다. -> 훨씬 더 정교한 이미지 생성
